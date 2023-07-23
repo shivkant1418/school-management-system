@@ -36,7 +36,7 @@ gem 'redis', '~> 4.0'
 # gem "kredis"
 
 # Use Active Model has_secure_password [https://guides.rubyonrails.org/active_model_basics.html#securepassword]
-# gem "bcrypt", "~> 3.1.7"
+gem "bcrypt", "~> 3.1.7"
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
@@ -49,6 +49,9 @@ gem 'cancancan', '~> 3.5.0'
 gem 'devise', '~> 4.9.2'
 gem 'rolify', '~> 6.0.1'
 
+# Token based authentication
+gem 'jwt', '~> 2.2'
+
 # Code analysis tools
 gem 'rubocop', '~> 1.54'
 
@@ -59,6 +62,9 @@ gem 'will_paginate', '~> 4.0'
 
 # State machine
 gem 'aasm', '~> 5.3.0'
+
+# Serializer
+gem 'active_model_serializers', '~> 0.10.0'
 
 # Use Sass to process CSS
 # gem "sassc-rails"

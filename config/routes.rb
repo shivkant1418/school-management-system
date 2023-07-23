@@ -6,6 +6,20 @@ Rails.application.routes.draw do
     sessions: 'users/sessions'
   }
 
+  namespace :api, defaults: { format: :json } do
+    post 'signin', to: 'sessions#create'
+
+    resources :batches, only: %i[index]
+    resources :courses, only: %i[index show]
+    resources :schools, only: %i[index show]
+
+    namespace :student do
+      resources :batches, only: %i[index show]
+      resources :courses, only: %i[index show]
+      resources :enrollments, only: %i[index create destroy]
+    end
+  end
+
   root 'home#index'
 
   namespace :admin do
