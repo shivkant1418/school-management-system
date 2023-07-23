@@ -1,0 +1,77 @@
+<div class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white min-vh-100">
+  <a href="/" class="d-flex align-items-center pb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+    <span class="fs-5 d-none d-sm-inline">Admin Panel</span>
+  </a>
+  <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu">
+    <li class="nav-item">
+      <a href="/" class="nav-link align-middle px-0">
+        <i class="fs-4 bi-speedometer2"></i>
+        <span class="ms-1 d-none d-sm-inline">Dashboard</span>
+      </a>
+    </li>
+    <li>
+      <a href="/admin/schools" class="nav-link px-0 align-middle">
+        <i class="fs-4 bi-table"></i>
+        <span class="ms-1 d-none d-sm-inline"><%= current_user.has_role?(:school_admin) ? "My Schools" : "Schools" %></span>
+      </a>
+    </li>
+    <li>
+      <a href="/admin/courses" class="nav-link px-0 align-middle">
+        <i class="fs-4 bi-book"></i>
+        <span class="ms-1 d-none d-sm-inline">Courses</span>
+      </a>
+    </li>
+    <li>
+      <a href="/admin/batches" class="nav-link px-0 align-middle">
+        <i class="fs-4 bi-grid"></i>
+        <span class="ms-1 d-none d-sm-inline">Batches</span>
+      </a>
+    </li>
+    <li>
+      <a href="#submenu3" data-bs-toggle="collapse" class="nav-link px-0 align-middle position-relative">
+        <i class="fs-4 bi-r-square-fill"></i>
+        <span class="ms-1 d-none d-sm-inline">Enrollments</span>
+        <span class="position-absolute start-100 translate-middle badge rounded-pill bg-danger">
+          <%= "#{Enrollment.accessible(current_user).pending.size} new" %>
+          <span class="visually-hidden">new requests</span>
+        </span>
+      </a>
+      <ul class="collapse nav flex-column ms-1" id="submenu3" data-bs-parent="#menu">
+        <li class="w-100">
+          <a href="/admin/enrollments" class="nav-link px-0">All</a>
+        </li>
+        <% Enrollment.statuses.keys.each do |status| %>
+          <li class="w-100">
+            <a href="/admin/enrollments?status=<%= status %>" class="nav-link px-0 position-relative"><%= status.titleize %></a>
+          </li>
+        <% end %>
+      </ul>
+    </li>
+    <% if current_user.has_role?(:admin) %>
+      <li>
+        <a href="/admin/users" class="nav-link px-0 align-middle">
+          <i class="fs-4 bi-people"></i>
+          <span class="ms-1 d-none d-sm-inline">Users</span>
+        </a>
+      </li>
+    <% end %>
+  </ul>
+  <hr>
+  <div class="dropdown pb-4">
+    <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" id="" data-bs-toggle="dropdown" aria-expanded="false">
+      <img src="https://github.com/mdo.png" alt="hugenerd" width="30" height="30" class="rounded-circle">
+      <span class="d-none d-sm-inline mx-1">loser</span>
+    </a>
+    <ul class="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="dropdownUser1">
+      <li>
+        <li><a class="dropdown-item" href="/users/edit">Settings</a></li>
+      </li>
+      <li>
+        <hr class="dropdown-divider">
+      </li>
+      <li>
+        <%= link_to "Sign out", destroy_user_session_path, class: "dropdown-item", data: { turbo_method: :delete } %>
+      </li>
+    </ul>
+  </div>
+</div>

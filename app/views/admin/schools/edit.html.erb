@@ -1,0 +1,10 @@
+<h1 class="mb-3">Editing school</h1>
+
+<%= render "form", school: @school %>
+
+<br>
+
+<div>
+  <%= link_to "Show this school", admin_school_path(@school) %> |
+  <%= link_to "Back to schools", admin_schools_path %>
+</div>

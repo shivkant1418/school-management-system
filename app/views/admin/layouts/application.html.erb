@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Admin Panel</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= javascript_include_tag "admin", "data-turbo-track": "reload", defer: true %>
+  </head>
+
+  <body>    
+    <div class="container-fluid">
+      <div class="row flex-nowrap">
+        <% if current_user&.has_role?(:admin) or current_user&.has_role?(:school_admin) %>
+          <div class="col-auto col-md-3 col-xl-2 px-sm-2 px-0 bg-dark">
+            <%= render "admin/shared/sidebar" %>
+          </div>
+        <% end %>
+        <div class="col py-3 px-4">
+          <%= yield %>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

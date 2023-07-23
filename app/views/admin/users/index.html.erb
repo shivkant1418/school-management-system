@@ -1,0 +1,62 @@
+<p style="color: green"><%= notice %></p>
+
+<% if can? :create, User %>
+  <div class="d-flex mt-3 justify-content-end">
+    <%= link_to "Add User", new_admin_user_path, class: "btn btn-primary btn-block" %>
+  </div>
+<% end %>
+
+<nav style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='currentColor'/%3E%3C/svg%3E&#34;);" aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="<%= admin_path %>">Home</a></li>
+    <li class="breadcrumb-item active"><a>Users</a></li>
+  </ol>
+</nav>
+
+<%= render "admin/users/filter_form" %>
+
+<div id="users" class="pt-3 pb-5">
+  <div class="container">
+    <div class="table-responsive" >
+      <table class="table table-fit table-bordered table-striped table-hover" >
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Email</th>
+            <th scope="col">Role(s)</th>
+            <th scope="col">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% if @users.any? %>
+            <% @users.each do |user| %>
+              <tr>
+                <th scope="row"><%= user.id %></th>
+                <td><%= user.email %></td>
+                <td><%= user.roles.map{ |role| role.name.gsub("_", " ").titleize }.join(", ") %></td>
+                <td >
+                  <div class="d-flex align-items-center">
+                    <% if can? :update, user %>
+                      <%= link_to "Edit", edit_admin_user_path(user), class: "btn btn-sm btn-primary" %>
+                    <% end %>
+                    <% if can? :destroy, user %>
+                      <%= link_to "Remove", admin_user_path(user), class: "btn btn-sm btn-danger ms-2", data: { turbo_method: :delete }, onclick: "return confirm('Are you sure?')" %>
+                    <% end %>
+                  </div>
+                </td>
+              </tr>
+            <% end %>
+          <% else %>
+            <tr style=" width: 100%; background: #eee;">
+              <td style="font-weight: 600;text-align: center;" colspan="4">No user <%= params[:commit] == "Filter" ? "matching search criteria" : "available" %> !!!
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<div class="apple-pagination">
+  <%= will_paginate @users %>
+</div>

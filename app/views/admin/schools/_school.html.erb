@@ -1,0 +1,26 @@
+<div class="card shadow-sm" style="height: 100%;">
+  <div class="card-header p-0 position-relative">
+    <img src="https://i.pinimg.com/236x/b7/2b/20/b72b20d40514934bf7ebd09957799d5a.jpg" style="width:100%; height:300px;">
+    <span style="position: absolute;right: 0;color: white;font-weight: 600;font-size: 18px;width: 100%;display: flex;justify-content: center;align-content: center;padding: 5px;bottom: calc(50% - 10px);text-align: center;"><%= school.name %></span>
+  </div>
+
+  <div class="card-body">
+    <p class="card-text"><%= school.description %></p>
+    <div class="d-flex justify-content-between align-items-center">
+      <% if action_name == "index" %>
+        <div class="btn-group" style=" position: absolute; top: 10px; right: 10px;">
+          <% if can? :read, school %>
+            <%= link_to "View", admin_school_path(school), class: "btn btn-sm btn-outline-secondary", style: "color: white; border: 1px solid white;" %>
+          <% end %>
+          <% if can? :update, school %>
+            <%= link_to "Edit", edit_admin_school_path(school), class: "btn btn-sm btn-outline-secondary", style: "color: white; border: 1px solid white;" %>
+          <% end %>
+        </div>
+      <% end %>
+      <div class="d-flex justify-content-between align-items-center flex-grow-1 ms-2">
+        <small class="text-muted d-flex align-items-center"><%= "<i class='fs-4 bi-geo-alt-fill'></i><span class='ms-2 fw-semibold'>#{school.address}</span>".html_safe %></small>
+        <small class="text-muted ms-2"><%= "#{time_ago_in_words school.created_at} ago" %></small>
+      </div>
+    </div>
+  </div>
+</div>

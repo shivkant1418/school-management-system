@@ -1,0 +1,75 @@
+<p style="color: green"><%= notice %></p>
+
+<div class="d-flex mt-3 justify-content-end">
+  <%= link_to "Edit Course", edit_admin_course_path(@course), class: "btn btn-primary btn-block" %>
+  <%= link_to "Delete Course", admin_course_path(@course), class: "btn btn-danger btn-block ms-2", data: { turbo_method: :delete }, onclick: "return confirm('Are you sure?')" %>
+</div>
+
+<nav style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='currentColor'/%3E%3C/svg%3E&#34;);" aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="<%= root_path %>">Home</a></li>
+    <li class="breadcrumb-item"><a href="<%= admin_courses_path %>">Courses</a></li>
+    <li class="breadcrumb-item active"><a><%= @course.name %></a></li>
+  </ol>
+</nav>
+
+<div id="<%= dom_id @course %>" class="col-12">
+  <%= render @course %>
+<div>
+
+<div>
+  <div class="d-flex mt-5 mb-3 justify-content-between">
+    <h3>Batches</h3>
+    <%= link_to "Add Batch", new_admin_batch_path(course_id: @course), class: "btn btn-primary btn-block" %>
+  </div>
+
+  <div id="batches" class="pt-3 pb-5">
+    <div class="container">
+      <div class="table-responsive" >
+        <table class="table table-fit table-bordered table-striped table-hover" >
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Name</th>
+              <th scope="col">Start Date</th>
+              <th scope="col">End Date</th>
+              <th scope="col">Decription</th>
+              <th scope="col">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% if @course.batches.any? %>
+              <div class="row g-3">
+                <% @course.batches.each_with_index do |batch, index| %>
+                  <tr>
+                    <th scope="row"><%= index + 1 %></th>
+                    <td><%= batch.name %></td>
+                    <td><%= batch.start_date.strftime('%d-%b-%Y %I:%M:%S %P') %></td>
+                    <td><%= batch.end_date.strftime('%d-%b-%Y %I:%M:%S %P') %></td>
+                    <td><%= batch.description %></td>
+                    <td >
+                      <div class="d-flex align-items-center">
+                        <% if can? :update, batch %>
+                          <%= link_to "Edit", edit_admin_batch_path(batch, course_id: @course), class: "btn btn-sm btn-primary" %>
+                        <% end %>
+                        <% if can? :destroy, batch %>
+                          <%= link_to "Remove", admin_batch_path(batch, course_id: @course), class: "btn btn-sm btn-danger ms-2", data: { turbo_method: :delete }, onclick: "return confirm('Are you sure?')" %>
+                        <% end %>
+                      </div>
+                    </td>
+                  </tr>
+                <% end %>
+              </div>
+            <% else %>
+              <tr style=" width: 100%; background: #eee;">
+                <td style="font-weight: 600;text-align: center;" colspan="6">No batch available !!!
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+<div>
+
+

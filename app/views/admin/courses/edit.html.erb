@@ -1,0 +1,14 @@
+<h1 class="mb-3">Editing course</h1>
+
+<%= render "form", course: @course %>
+
+<br>
+
+<div>
+  <%= link_to "Show this course", admin_course_path(@course) %> |
+  <% if params[:school_id].present? %>
+    <%= link_to "Back to school", admin_school_path(params[:school_id]) %>
+  <% else %>
+    <%= link_to "Back to courses", admin_courses_path %>
+  <% end %>
+</div>

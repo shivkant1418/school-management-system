@@ -1,0 +1,41 @@
+<p style="color: green"><%= notice %></p>
+
+<div class="d-flex mt-3 justify-content-end">
+  <%= link_to "Add School Admin", new_admin_school_admin_path, class: "btn btn-primary btn-block" %>
+</div>
+
+<nav style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='currentColor'/%3E%3C/svg%3E&#34;);" aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="<%= admin_path %>">Home</a></li>
+    <li class="breadcrumb-item"><a href="<%= admin_schools_path %>">Schools</a></li>
+    <li class="breadcrumb-item"><a href="<%= admin_school_path(@school) %>"><%= @school.name %></a></li>
+    <li class="breadcrumb-item active"><a>School Admins</a></li>
+  </ol>
+</nav>
+
+<div id="school_admins" class="pt-3 pb-5">
+  <div class="container">
+    <div class="table-responsive" >
+      <table class="table table-fit table-bordered table-striped table-hover" >
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Email</th>
+            <th scope="col">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @school.school_admins.includes(:user).each_with_index do |school_admin, index| %>
+            <tr>
+              <th scope="row"><%= index + 1 %></th>
+              <td><%= school_admin.user.email %></td>
+              <td >
+                <%= link_to "Remove", admin_school_admin_path(@school, school_admin), class: "btn btn-sm btn-danger", data: { turbo_method: :delete }, onclick: "return confirm('Are you sure?')" %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

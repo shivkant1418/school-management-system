@@ -1,0 +1,65 @@
+<p style="color: green"><%= notice %></p>
+
+<nav style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='currentColor'/%3E%3C/svg%3E&#34;);" aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="<%= root_path %>">Home</a></li>
+    <li class="breadcrumb-item active"><a>Enrollment Requests</a></li>
+  </ol>
+</nav>
+
+<%= render "student/enrollments/filter_form" %>
+
+<div id="enrollments" class="pt-3 pb-5">
+  <div class="container">
+    <div class="table-responsive" >
+      <table class="table table-fit table-bordered table-striped table-hover" >
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">School Name</th>
+            <th scope="col">Course Name</th>
+            <th scope="col">Batch Name</th>
+            <th scope="col">Student</th>
+            <th scope="col">Applied at</th>
+            <th scope="col">Approved / Denied at</th>
+            <th scope="col">Status</th>
+            <th scope="col">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% if @enrollments.any? %>
+            <% @enrollments.each do |enrollment| %>
+              <tr>
+                <th scope="row"><%= enrollment.id %></th>
+                <td><%= enrollment.batch.course.school.name %></td>
+                <td><%= enrollment.batch.course.name %></td>
+                <td><%= enrollment.batch.name %></td>
+                <td><%= enrollment.student.email %></td>
+                <td><%= time_ago_in_words(enrollment.created_at) %> ago</td>
+                <td><%= time_ago_in_words(enrollment.updated_at) %> ago</td>
+                <td><%= enrollment_status_badge(enrollment.status) %></td>
+                <td>
+                  <div class="d-flex align-items-center">
+                    <% if enrollment.pending? and can?(:destroy, enrollment) %>
+                      <%= link_to "Withdraw", student_enrollment_path(enrollment), class: "btn btn-sm btn-danger ms-2", data: { turbo_method: :delete }, onclick: "return confirm('Are you sure?')" %>
+                    <% end %>
+                  </div>
+                </td>
+              </tr>
+            <% end %>
+          <% else %>
+            <tr style=" width: 100%; background: #eee;">
+              <td style="font-weight: 600;text-align: center;" colspan="9">No enrollment <%= params[:commit] == "Filter" ? "matching search criteria" : "available" %> !!!
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+
+<div class="apple-pagination">
+  <%= will_paginate @enrollments %>
+</div>
+

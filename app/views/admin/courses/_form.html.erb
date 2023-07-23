@@ -1,0 +1,35 @@
+<%= form_with(model: course, url: course.persisted? ? admin_course_path(course) : admin_courses_path) do |form| %>
+  <% if course.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(course.errors.count, "error") %> prohibited this course from being saved:</h2>
+
+      <ul>
+        <% course.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-outline mb-4">
+    <%= form.label :name, class: "form-label" %>
+    <%= form.text_field :name, class: "form-control" %>
+  </div>
+
+  <div class="form-outline mb-4">
+    <%= form.label :description, class: "form-label" %>
+    <%= form.text_area :description, class: "form-control" %>
+  </div>
+
+  <div class="form-outline mb-4">
+    <%= form.label :school, class: "form-label" %>
+    <%= form.select :school_id, options_for_select(School.accessible(current_user).select(:id, :name).pluck(:name, :id), form.object.school_id || params[:school_id]), { prompt: "Select School ..." }, { class: "form-select" } %>
+  </div>
+
+  <%= hidden_field_tag :redirect_page, params[:school_id].present? ? "school" : nil  %>
+
+  <div>
+    <%= form.submit class: "btn btn-primary btn-block mb-4" %>
+  </div>
+<% end %>
+

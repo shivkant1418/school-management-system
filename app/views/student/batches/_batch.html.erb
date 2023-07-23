@@ -1,0 +1,34 @@
+<div class="card shadow-sm" style="height: 100%;">
+  <div class="card-header p-0 position-relative">
+    <img src="https://i.pinimg.com/originals/1b/b7/81/1bb781737e7939d45ebf357ddee813ec.jpg" style="width:100%; height:300px;">
+    <span style="position: absolute;right: 0;color: white;font-weight: 600;font-size: 18px;width: 100%;display: flex;justify-content: center;align-content: center;padding: 5px;bottom: calc(50% - 10px);text-align: center;"><%= batch.name %></span>
+  </div>
+
+  <div class="card-body">
+    <p class="card-text"><%= batch.description %></p>
+    <div>
+      <span class="fw-semibold">School: </span>
+      <span class="ms-2"><%= batch.course.school.name %></span>
+    </div>
+    <div>
+      <span class="fw-semibold">Starts At:</span>
+      <span class="ms-2"><%= batch.start_date.strftime('%d-%b-%Y %I:%M:%S %P') %></span>
+    </div>
+    <div>
+      <span class="fw-semibold">Ends At:</span>
+      <span class="ms-2"><%= batch.end_date.strftime('%d-%b-%Y %I:%M:%S %P') %></span>
+    </div>
+    <div class="d-flex justify-content-between align-items-center mt-2">
+      <% if action_name == "index" %>
+        <div class="btn-group" style=" position: absolute; top: 10px; right: 10px;">
+          <%= link_to "View", student_batch_path(batch), class: "btn btn-sm btn-outline-secondary", style: "color: white; border: 1px solid white;" %>
+        </div>
+      <% end %>
+
+      <div class="d-flex justify-content-between align-items-center flex-grow-1 ms-2">
+        <small class="text-muted d-flex align-items-center"><%= "<i class='fs-4 bi-table'></i><span class='ms-2 fw-semibold'>#{batch.course.name}</span>".html_safe %></small>
+        <small class="text-muted ms-2"><%= "#{time_ago_in_words batch.created_at} ago" %></small>
+      </div>
+    </div>
+  </div>
+</div>

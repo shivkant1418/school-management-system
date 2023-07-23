@@ -1,0 +1,13 @@
+<h1 class="mb-3">Editing Batch</h1>
+
+<%= render "form", batch: @batch %>
+
+<br>
+
+<div>
+  <% if params[:course_id].present? %>
+    <%= link_to "Back to course", admin_course_path(params[:course_id]) %>
+  <% else %>
+    <%= link_to "Back to batches", admin_batches_path %>
+  <% end %>
+</div>

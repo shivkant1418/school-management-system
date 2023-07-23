@@ -1,0 +1,56 @@
+<p style="color: green"><%= notice %></p>
+
+<nav style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='currentColor'/%3E%3C/svg%3E&#34;);" aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="<%= root_path %>">Home</a></li>
+    <li class="breadcrumb-item"><a href="<%= courses_path %>">Courses</a></li>
+    <li class="breadcrumb-item active"><a><%= @course.name %></a></li>
+  </ol>
+</nav>
+
+<div id="<%= dom_id @course %>" class="col-12">
+  <%= render @course %>
+<div>
+
+<div>
+  <div class="d-flex mt-5 mb-3 justify-content-between">
+    <h3>Batches</h3>
+  </div>
+
+  <% unless @course.batches.any? %>
+    <div style=" width: 100%; height: 40px; background: #eee; margin-bottom: 20px; border-top: solid 1px #ccc; border-bottom: solid 1px #ccc; ">
+      <p style="position: relative; font-weight: 700; display: flex;justify-content: center;align-items: cente;top: 7px;">No Batch <%= params[:commit] == "Filter" ? "matching search criteria" : "available" %></p>
+    </div>
+  <% end %>
+
+  <div id="batches" class="pt-3 pb-5">
+    <div class="container">
+      <div class="table-responsive" >
+        <table class="table table-fit table-bordered table-striped table-hover" >
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Name</th>
+              <th scope="col">Start Date</th>
+              <th scope="col">End Date</th>
+              <th scope="col">Decription</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @course.batches.each_with_index do |batch, index| %>
+              <tr>
+                <th scope="row"><%= index + 1 %></th>
+                <td><%= batch.name %></td>
+                <td><%= batch.start_date.strftime('%d-%b-%Y %I:%M:%S %P') %></td>
+                <td><%= batch.end_date.strftime('%d-%b-%Y %I:%M:%S %P') %></td>
+                <td><%= batch.description %></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+<div>
+
+

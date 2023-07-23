@@ -1,0 +1,39 @@
+<%= form_with(model: enrollment, url: admin_enrollments_path) do |form| %>
+  <% if enrollment.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(enrollment.errors.count, "error") %> prohibited this enrollment from being saved:</h2>
+
+      <ul>
+        <% enrollment.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-outline mb-4">
+    <%= form.label :student, class: "form-label" %>
+    <%= form.select :student_id, options_for_select(Role.student.users.pluck(:email, :id)), { prompt: "Select Student ..." }, { class: "form-select" } %>
+  </div>
+
+  <div class="form-outline mb-4">
+    <%= form.label :school, class: "form-label" %>
+    <%= form.select :school_id, options_for_select(School.all.pluck(:name, :id)), { prompt: "Select School ..." }, { class: "form-select" } %>
+  </div>
+
+  <div class="form-outline mb-4">
+    <%= form.label :course, class: "form-label" %>
+    <%= form.select :course_id, [], { prompt: "Select Course ..." }, { class: "form-select" } %>
+  </div>
+
+  <div class="form-outline mb-4">
+    <%= form.label :batch, class: "form-label" %>
+    <%= form.select :batch_id, [], { prompt: "Select Batch ..." }, { class: "form-select" } %>
+  </div>
+
+  <%= form.hidden_field :status, value: "approved"%>
+
+  <div>
+    <%= form.submit class: "btn btn-primary btn-block mb-4" %>
+  </div>
+<% end %>

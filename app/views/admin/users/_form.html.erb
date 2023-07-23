@@ -1,0 +1,33 @@
+<%= form_with(model: user, url: user.persisted? ? admin_user_path(user) : admin_users_path) do |form| %>
+  <% if user.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(user.errors.count, "error") %> prohibited this user from being saved:</h2>
+
+      <ul>
+        <% user.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-outline mb-4">
+    <%= form.label :email, class: "form-label" %>
+    <%= form.text_field :email, class: "form-control" %>
+  </div>
+
+  <div class="form-outline mb-4">
+    <%= form.label :password, class: "form-label" %>
+    <%= form.password_field :password, class: "form-control" %>
+  </div>
+
+  <div class="form-outline mb-4">
+    <%= form.label :role, class: "form-label" %>
+    <%= form.select :role_ids, options_for_select(Role.select(:name, :id).collect{ |role| [role.name.gsub("_", " ").titleize, role.id] }), {}, { class: "form-select" } %>
+  </div>
+
+  <div>
+    <%= form.submit class: "btn btn-primary btn-block mb-4" %>
+  </div>
+<% end %>
+
