@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 class User < ApplicationRecord
-  has_secure_password
-
   rolify
 
   devise :database_authenticatable, :registerable,
