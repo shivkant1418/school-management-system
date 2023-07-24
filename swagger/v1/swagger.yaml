@@ -3,9 +3,65 @@ openapi: 3.0.1
 info:
   title: API V1
   version: v1
-paths: {}
+paths:
+  "/api/v1/signup":
+    post:
+      summary: Register a new user
+      tags:
+      - Registrations
+      parameters: []
+      responses:
+        '201':
+          description: user registered successfully
+        '422':
+          description: unprocessable entity
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  example: test@example.com
+                password:
+                  type: string
+                  example: password
+                password_confirmation:
+                  type: string
+                  example: password
+              required:
+              - email
+              - password
+              - password_confirmation
+  "/api/v1/signin":
+    post:
+      summary: Authenticate user and get JWT token
+      tags:
+      - Sessions
+      parameters: []
+      responses:
+        '200':
+          description: successful authentication
+        '401':
+          description: unauthorized
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  example: test@example.com
+                password:
+                  type: string
+                  example: password
+              required:
+              - email
+              - password
 servers:
-- url: https://{defaultHost}
+- url: http://localhost:3000
   variables:
     defaultHost:
-      default: 'localhost:3000'
+      default: http://localhost:3000

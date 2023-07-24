@@ -14,6 +14,8 @@ Rails.application.routes.draw do
       post 'signin', to: 'sessions#create'
       post 'signup', to: 'registrations#create'
 
+      post 'users', to: 'user#create'
+
       resources :batches, only: %i[index]
       resources :courses, only: %i[index show]
       resources :schools, only: %i[index show]
