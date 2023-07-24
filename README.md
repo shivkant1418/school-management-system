@@ -1,7 +1,7 @@
 # School Management System
 
 ## Description
-The School Management System is a web application built using Ruby on Rails. It provides a platform for managing schools, courses, batches, enrollments, and user roles.
+The School Management System is a web application built using Ruby on Rails. It provides a platform for managing schools, courses, batches, enrollments, and user roles. Additionally, it includes APIs for student-specific actions.
 
 ## Features
 - User Roles: The system supports three types of user roles - Admin, School Admin, and Student. Each role has different levels of access and privileges.

@@ -1,0 +1,401 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "API V1",
+    "version": "v1"
+  },
+  "securityDefinitions": {
+    "client": {
+      "in": "header",
+      "name": "Authorization",
+      "type": "oauth2",
+      "require": true,
+      "description": "Client Token",
+      "tokenUrl": "http://localhost:3000/auth/token",
+      "flow": "application",
+      "scopes": {
+      }
+    }
+  },
+  "paths": {
+    "/api/v1/batches": {
+      "get": {
+        "summary": "Retrieve a list of batches",
+        "tags": [
+          "Batches"
+        ],
+        "parameters": [
+          {
+            "name": "school_id",
+            "in": "query",
+            "description": "Filter batches by school ID",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "course_id",
+            "in": "query",
+            "description": "Filter batches by course ID",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "batch_name",
+            "in": "query",
+            "description": "Filter batches by name",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Page number for pagination",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful response"
+          }
+        }
+      }
+    },
+    "/api/v1/courses": {
+      "get": {
+        "summary": "Retrieve a list of courses",
+        "tags": [
+          "Courses"
+        ],
+        "parameters": [
+          {
+            "name": "school_id",
+            "in": "query",
+            "description": "Filter courses by school ID",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "course_name",
+            "in": "query",
+            "description": "Filter courses by name",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Page number for pagination",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful response"
+          }
+        }
+      }
+    },
+    "/api/v1/courses/{id}": {
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "description": "Course ID",
+          "required": true,
+          "schema": {
+            "type": "integer"
+          }
+        }
+      ],
+      "get": {
+        "summary": "Retrieve a course by ID",
+        "tags": [
+          "Courses"
+        ],
+        "responses": {
+          "200": {
+            "description": "successful response"
+          },
+          "404": {
+            "description": "not found"
+          }
+        }
+      }
+    },
+    "/api/v1/schools": {
+      "get": {
+        "summary": "Retrieve a list of schools",
+        "tags": [
+          "Schools"
+        ],
+        "parameters": [
+          {
+            "name": "school_name",
+            "in": "query",
+            "description": "Filter schools by name",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Page number for pagination",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful response"
+          }
+        }
+      }
+    },
+    "/api/v1/schools/{id}": {
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "description": "School ID",
+          "required": true,
+          "schema": {
+            "type": "integer"
+          }
+        }
+      ],
+      "get": {
+        "summary": "Retrieve a school by ID",
+        "tags": [
+          "Schools"
+        ],
+        "responses": {
+          "200": {
+            "description": "successful response"
+          },
+          "404": {
+            "description": "not found"
+          }
+        }
+      }
+    },
+    "/api/v1/student/enrollments": {
+      "get": {
+        "summary": "Retrieves a list of enrollments for the authenticated student user",
+        "tags": [
+          "Enrollments"
+        ],
+        "security": [
+          {
+            "bearer_auth": [
+
+            ]
+          }
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "reuqired": true,
+            "description": "Client token",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "list of enrollments retrieved"
+          }
+        }
+      },
+      "post": {
+        "summary": "Creates a new enrollment request for the authenticated student user",
+        "tags": [
+          "Enrollments"
+        ],
+        "security": [
+          {
+            "bearer_auth": [
+
+            ]
+          }
+        ],
+        "parameters": [
+
+        ],
+        "responses": {
+          "201": {
+            "description": "enrollment request created"
+          },
+          "422": {
+            "description": "invalid request"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "student_id": {
+                    "type": "integer"
+                  },
+                  "batch_id": {
+                    "type": "integer"
+                  }
+                },
+                "required": [
+                  "student_id",
+                  "batch_id"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/student/enrollments/{id}": {
+      "delete": {
+        "summary": "Withdraws an enrollment request for the authenticated student user",
+        "tags": [
+          "Enrollments"
+        ],
+        "security": [
+          {
+            "bearer_auth": [
+
+            ]
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "enrollment request withdrawn"
+          },
+          "404": {
+            "description": "enrollment not found"
+          }
+        }
+      }
+    },
+    "/api/v1/users/signup": {
+      "post": {
+        "summary": "Register a new user",
+        "tags": [
+          "Registrations"
+        ],
+        "parameters": [
+
+        ],
+        "responses": {
+          "201": {
+            "description": "user registered successfully"
+          },
+          "422": {
+            "description": "unprocessable entity"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string",
+                    "example": "test@example.com"
+                  },
+                  "password": {
+                    "type": "string",
+                    "example": "password"
+                  },
+                  "password_confirmation": {
+                    "type": "string",
+                    "example": "password"
+                  }
+                },
+                "required": [
+                  "email",
+                  "password",
+                  "password_confirmation"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/users/signin": {
+      "post": {
+        "summary": "Authenticate user and get JWT token",
+        "tags": [
+          "Sessions"
+        ],
+        "parameters": [
+
+        ],
+        "responses": {
+          "200": {
+            "description": "successful authentication"
+          },
+          "401": {
+            "description": "unauthorized"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string",
+                    "example": "test@example.com"
+                  },
+                  "password": {
+                    "type": "string",
+                    "example": "password"
+                  }
+                },
+                "required": [
+                  "email",
+                  "password"
+                ]
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3000",
+      "variables": {
+        "defaultHost": {
+          "default": "http://localhost:3000"
+        }
+      }
+    }
+  ]
+}

@@ -1,7 +1,7 @@
-require 'rails_helper'
+require 'swagger_helper'
 
 RSpec.describe "Api::V1::Registrations", type: :request do
-  path '/api/v1/signup' do
+  path '/api/v1/users/signup' do
     post 'Register a new user' do
       tags 'Registrations'
       consumes 'application/json'
@@ -26,7 +26,7 @@ RSpec.describe "Api::V1::Registrations", type: :request do
 
         run_test! do
           expect(response).to have_http_status(:created)
-          expect(json_response['status']).to eq('success')
+          expect(json_response['type']).to eq('success')
           expect(json_response['message']).to eq('User registered successfully.')
         end
       end
@@ -42,7 +42,7 @@ RSpec.describe "Api::V1::Registrations", type: :request do
 
         run_test! do
           expect(response).to have_http_status(:unprocessable_entity)
-          expect(json_response['status']).to eq('error')
+          expect(json_response['type']).to eq('error')
           expect(json_response['errors']).to include("Password confirmation doesn't match Password")
         end
       end

@@ -13,5 +13,9 @@ module ExceptionHandler
     rescue_from JWT::DecodeError, JWT::ExpiredSignature  do |e|
       json_response({ message: e.message }, :unauthorized)
     end
+
+    rescue_from CanCan::AccessDenied  do |e|
+      json_response({ message: e.message }, :forbidden)
+    end
   end
 end

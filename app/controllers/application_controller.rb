@@ -7,7 +7,6 @@ class ApplicationController < ActionController::Base
 
   rescue_from CanCan::AccessDenied do |_exception|
     respond_to do |format|
-      format.json { head :forbidden }
       format.html { render 'content_pages/not_found' }
     end
   end

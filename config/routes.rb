@@ -11,8 +11,8 @@ Rails.application.routes.draw do
 
   namespace :api, defaults: { format: :json } do
     namespace :v1 do
-      post 'signin', to: 'sessions#create'
-      post 'signup', to: 'registrations#create'
+      post 'users/signin', to: 'users/sessions#create'
+      post 'users/signup', to: 'users/registrations#create'
 
       post 'users', to: 'user#create'
 

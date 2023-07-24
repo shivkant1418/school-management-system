@@ -3,8 +3,8 @@ module Response
     render json: object, status: status
   end
 
-  def pagination_json_response(resources)
-    json_response({ data: resources, meta: pagination_dict(resources) })
+  def pagination_json_response(resources, status = :ok)
+    json_response({ data: resources, meta: pagination_dict(resources) }, status)
   end
 
   private

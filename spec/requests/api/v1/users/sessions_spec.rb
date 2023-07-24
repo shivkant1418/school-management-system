@@ -1,7 +1,7 @@
-require 'rails_helper'
+require 'swagger_helper'
 
 RSpec.describe "Api::V1::Sessions", type: :request do
-  path '/api/v1/signin' do
+  path '/api/v1/users/signin' do
     post 'Authenticate user and get JWT token' do
       tags 'Sessions'
       consumes 'application/json'
@@ -15,17 +15,19 @@ RSpec.describe "Api::V1::Sessions", type: :request do
       }
 
       response '200', 'successful authentication' do
+        let!(:present_user) { create(:user, password: 'password') }
+
         let(:user) do
           {
-            email: 'test@example.com',
+            email: present_user.email,
             password: 'password'
           }
         end
 
         run_test! do
           expect(response).to have_http_status(:ok)
-          expect(json_response['token']).not_to be_empty
-          expect(json_response['exp']).not_to be_empty
+          expect(json_response['data']['token']).not_to be_empty
+          expect(json_response['data']['exp']).not_to be_empty
         end
       end
 

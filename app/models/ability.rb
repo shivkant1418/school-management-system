@@ -23,6 +23,7 @@ class Ability
       can :read, School
       can :read, Course, id: user.my_courses.ids
       can :read, CoursesController
+      can :read, Api::V1::CoursesController
       can :read, Batch, course: { id: user.my_courses.ids }
       can %i[read create destroy], Enrollment, student: user
     end

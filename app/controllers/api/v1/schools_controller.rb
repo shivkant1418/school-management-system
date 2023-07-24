@@ -9,7 +9,7 @@ module Api
         @schools = School.accessible(current_user)
                         .filtered(params[:school_name])
                         .order(created_at: :desc)
-                        .paginate(page: params[:page], per_page: 2)
+                        .paginate(page: params[:page], per_page: 10)
 
         pagination_json_response(@schools)
       end
@@ -17,7 +17,7 @@ module Api
       def show
         authorize! :read, @school
 
-        json_response(@school)
+        json_response(data: @school)
       end
 
       private

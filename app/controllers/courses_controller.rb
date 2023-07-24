@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class CoursesController < ApplicationController
-  # authorize_resource class: CoursesController
   before_action :set_course, only: :show
 
   def index
