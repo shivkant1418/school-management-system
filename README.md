@@ -27,17 +27,17 @@ The application includes APIs for student-related actions. These APIs are docume
 
 ## JavaScript Build
 
-This application uses the cssbundling-rails and jsbundling-rails gems to manage CSS and JavaScript assets. After making changes to your CSS or JavaScript files, you need to build the app to compile the assets.
+This application uses the cssbundling-rails and jsbundling-rails gems to manage CSS and JavaScript assets. After making changes to your CSS or JavaScript files and with your initial setup, you need to build the app to compile the assets.
 
 To build the app and compile the assets, run the following command:
 
 ```bash
-  rails assets:precompile
+  rails css:build && rails javascript:build
 ```
 
-Ensure that you have yarn installed before executing the provided command.
+Also, these assets build uses `yarn` so make sure that you have `yarn` install.
 
-In case javascript function or dropdown click does not work in application (admin panel) please delete the files under the build folder and run `rails assets:precompile`
+In case javascript function or dropdown click does not work in application please delete the files under the build folder and build the assets running same command.
 
 ## Usage
 1. Run the Rails server with `rails server`.
