@@ -35,7 +35,9 @@ To build the app and compile the assets, run the following command:
   rails assets:precompile
 ```
 
-In case javascript function or dropdown click does not work in application please delete the files under the build folder and run `rails assets:precompile`
+Ensure that you have yarn installed before executing the provided command.
+
+In case javascript function or dropdown click does not work in application (admin panel) please delete the files under the build folder and run `rails assets:precompile`
 
 ## Usage
 1. Run the Rails server with `rails server`.
