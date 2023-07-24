@@ -34,14 +34,14 @@ end
 # Create courses for the school
 School.first(2).each do |school|
   3.times do
-    Course.create!(name: Faker::Educator.unique.course, description: Faker::Lorem.sentences.join(' '), school: school)
+    Course.create!(name: "#{Faker::Educator.unique.course} - #{school.name}", description: Faker::Lorem.sentences.join(' '), school: school)
   end
 end
 
 # Create batches for the course
 Course.first(2).each do |course|
   ('A'..'C').each do |letter|
-    Batch.create(name: "Batch #{letter}", description: Faker::Lorem.sentences.join(' '), start_date: '2023-09-01',
+    Batch.create(name: "Batch #{letter} - #{course.name}", description: Faker::Lorem.sentences.join(' '), start_date: '2023-09-01',
                  end_date: '2024-06-30', course: course)
   end
 end

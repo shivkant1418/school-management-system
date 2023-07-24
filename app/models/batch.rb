@@ -6,7 +6,7 @@ class Batch < ApplicationRecord
   has_many :enrollments, -> { where(enrollments: { status: 'approved' }) }, dependent: :destroy
   has_many :students, through: :enrollments
 
-  validates :name, presence: true, uniqueness: { scope: :course_id, case_sensitive: false }, length: { maximum: 50 }
+  validates :name, presence: true, uniqueness: { scope: :course_id, case_sensitive: false }, length: { maximum: 100 }
 
   validates :start_date, :end_date, presence: true
 

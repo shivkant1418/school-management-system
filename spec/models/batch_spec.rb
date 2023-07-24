@@ -12,7 +12,7 @@ RSpec.describe Batch, type: :model do
     subject { build(:batch) } # Use FactoryBot to build a new Batch object
 
     it { should validate_presence_of(:name) }
-    it { should validate_length_of(:name).is_at_most(50) }
+    it { should validate_length_of(:name).is_at_most(100) }
     it { should validate_uniqueness_of(:name).scoped_to(:course_id).case_insensitive }
 
     it { should validate_presence_of(:start_date) }
