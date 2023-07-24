@@ -14,6 +14,10 @@ The School Management System is a web application built using Ruby on Rails. It 
 - Pagination: The application uses the `will_paginate` gem for pagination in lists.
 - Search: Users can filter and search for schools, courses, batches, and enrollments based on various criteria.
 
+## APIs for Students
+
+The application includes APIs for student-related actions. These APIs are documented using Swagger and can be accessed at `http://localhost:3000/api-docs/index.html`. Swagger allows you to explore and test the APIs directly from the documentation.
+
 ## Setup and Installation
 1. Ensure you have Ruby 3.0.0 installed on your system.
 2. Clone the repository from GitHub.
